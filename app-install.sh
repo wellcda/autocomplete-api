@@ -1,23 +1,16 @@
 #!/bin/bash
 
-# Instala todas as dependências
+# Install all dependencies
 docker-compose exec app composer install
 
-# Dá permissão de leitura, escrita na pasta storage
+# Grant user and group read, write and execute permissions on storage folder
 docker-compose exec app chmod -R 775 storage
 
-# Cria as chaves do Laravel
+# Create Laravel app keys
 docker-compose exec app php artisan key:generate
 
-# Cacheia as configurações
+# Cache settings into files
 docker-compose exec app php artisan config:cache
 
-# Executa as migrations
-docker-compose exec app php artisan migrate --seed
-
-# Configura o Laravel Passport
-docker-compose exec app php artisan passport:install
-
-# Roda Queue Worker do Laravel (Interrompendo o processo antigo porque ele usa o código antigo).
-docker-compose exec app php artisan queue:restart
-docker-compose exec -d app php artisan queue:work --sleep=10
+# Execute the projects first migrations
+docker-compose exec app php artisan migrate
