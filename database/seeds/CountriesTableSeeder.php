@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class CountriesTableSeeder extends Seeder
 {
@@ -13,7 +14,7 @@ class CountriesTableSeeder extends Seeder
     {
         App\Models\Country::truncate();
 
-        App\Models\Country::create([
+        DB::table('countries')->insert([
             ['name' => 'Afghanistan'],
             ['name' => 'Albania'],
             ['name' => 'Algeria'],
