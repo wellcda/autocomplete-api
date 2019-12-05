@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class CountriesTableSeeder extends Seeder
 {
@@ -12,7 +11,9 @@ class CountriesTableSeeder extends Seeder
      */
     public function run()
     {
-        $countries = [
+        App\Models\Country::truncate();
+
+        App\Models\Country::create([
             ['name' => 'Afghanistan'],
             ['name' => 'Albania'],
             ['name' => 'Algeria'],
@@ -254,6 +255,6 @@ class CountriesTableSeeder extends Seeder
             ['name' => 'Zaire'],
             ['name' => 'Zambia'],
             ['name' => 'Zimbabwe'],
-        ];
+        ]);
     }
 }
