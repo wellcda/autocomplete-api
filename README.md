@@ -12,7 +12,7 @@ Docker Compose https://docs.docker.com/compose/install/
 
 This project is fully dockerized, to install it you must fulfil the requirements listed above.
 
-1. The first step would be to create the .env file and make sure it is configured properly, but,**since this is a test, I will commit the .env file and make sure everything is "plug and play"**
+1. The first step would be to create the .env file and make sure it is configured properly, but, **since this is a test, I will commit the .env file and make sure everything is "plug and play"**, otherwise you would have to copy the .env.example file and create your own .env file.
 
 2. Build the Docker images
 ```bash
@@ -24,11 +24,32 @@ docker-compose up --build
 bash app-install.sh
 ```
 
-After those commands, the API should be up and running and you can access the API at http://localhost:8000/ and Adminer (DBMS) at http://localhost:8080/.
+After those commands, the API should be up and running and you can access it at http://localhost:8000/ and Adminer (DBMS) at http://localhost:8080/.
 
-If you're having trouble with Postgres users after building your images for the first time, remove the volume and build the images again.
+## Database access
+
+To access the database using Adminer at http://localhost:8080/ just fill the inputs as listed below.
+
+| Label | Value |
+| -------- | -------- |
+| **System** | PostgreSQL |
+| **Server** | pgdb |
+| **Username** | admin |
+| **Password** | password |
+| **Database** | autocomplete |
+
+## Tests with PHPUnit
+To execute the Unit and HTTP tests use the command below
+
+```bash
+docker-compose exec app vendor/bin/phpunit --testdox
 ```
-$ docker-compose down
-$ docker rm autocomplete-api_dbdata
-$ docker-compose up --build
+
+## Postman Collection
+There's a postman collection with a single request available at https://www.getpostman.com/collections/0c372377c4ed5d99448a, feel free to use it.
+
+## CURL command (as requested)
+
+```curl
+curl 'http://localhost:4200/api/countries?searchQuery=af' -H 'Accept: application/json' --compressed
 ```

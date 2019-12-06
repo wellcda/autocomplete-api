@@ -16,4 +16,16 @@ class Country extends Model
     protected $fillable = [
         'name'
     ];
+
+    /**
+     * Simple search by name
+     *
+     * @param [type] $query
+     * @param string $search
+     * @return $query
+     */
+    public function scopeSearch($query, string $search)
+    {
+        return $query->where('name', 'ilike', "%$search%");
+    }
 }

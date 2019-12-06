@@ -12,9 +12,17 @@ class CountryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return $this->sendResponse(Country::all());
+        $countryQuery = new Country();
+
+        if ($request->input('searchQuery')) {
+            $countryQuery = $countryQuery->search($request->input('searchQuery'));
+        }
+
+        $countries = $countryQuery->get();
+
+        return $this->sendResponse($countries);
     }
 
     /**
